@@ -68,7 +68,7 @@ logger.Error(ex, "Request failed for user {UserId}", userId);
 File rotation is built in — no extra packages needed:
 
 ```csharp
-new LoggerBuilder()
+ILogger logger = new LoggerBuilder()
     .SetLoggerName("MyApp")
     .AddTimedRotatingFileSink("logs/app.log", maxFile: 30)        // rotate daily
     .AddSizedRotatingFileSink("logs/app.log", maxFileSizeMB: 50)  // rotate by size
@@ -109,6 +109,8 @@ ILogger validatorLog = orderLog.ForContext("Validator");
 validatorLog.Info("Validating order {Id}", orderId);
 // [2026-03-31 12:00:00.000] [INF] [MyApp] [Order.Processor.Validator] Validating order 1001
 ```
+
+![Colored console output](assets/ConsoleSample.png)
 
 Use it standalone as shown above, or integrate it into ASP.NET Core / Generic Host as a full drop-in replacement for the default `Microsoft.Extensions.Logging` provider — see [Integration with Generic Host](#integration-with-generic-host).
 
@@ -205,6 +207,8 @@ new LoggerBuilder()
         })
     .Build();
 ```
+
+Provides lightweight HTTP sinks using native HttpClient for batching logs to Seq (CLEF format) or Grafana Loki.
 
 ---
 
