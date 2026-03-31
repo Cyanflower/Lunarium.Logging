@@ -9,6 +9,7 @@ ILogger logger = new LoggerBuilder()
     .Build();
 
 // ── Section 1: Log levels ─────────────────────────────────────────────────────
+Console.WriteLine("== Color Console Example ====================================================");
 Console.WriteLine("── Log Levels ───────────────────────────────────────────────────────────────");
 logger.Debug("Application initializing, environment: {Env}", "Production");
 logger.Info("Server started on port {Port}", 8080);

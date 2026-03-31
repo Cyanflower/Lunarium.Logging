@@ -3,7 +3,15 @@
 ## 提示指令
 - 在遇到需要测试项目相关信息的时候优先通过各个测试项目的 Index.md 快速了解相关信息，避免读全库再寻找等等操作
 - 任何时候，当你为你编写或修改了测试用例（tests/）或基准测试（benchmarks/），你必须在同一个回复或后续的修改步骤中，同步更新对应的 Index.md。如果你遗漏了这一步，将被视为严重的任务失败。
-
+- 在推送时, 如果本次修改不包含影响库的代码实现(如 md 更改, doc 更改), 添加[skip ci]
+- 当前自动过滤路径 (无需手动[skip ci]):
+```
+paths-ignore:
+- '**.md'
+- 'example/**'
+- 'BenchmarkReports/**'
+- 'CoverageReport/**'
+```
 ## 项目概述
 
 .NET 10.0 结构化日志库（Class Library）。参考 Serilog 设计的消息模板解析，基于 .NET Channel 的异步日志分发架构。

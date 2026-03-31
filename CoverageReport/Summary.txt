@@ -1,15 +1,15 @@
 Summary
-  Generated on: 2026/3/30 - 16:33:38
-  Coverage date: 2026/3/30 - 16:33:34 - 2026/3/30 - 16:33:37
+  Generated on: 2026/3/31 - 11:01:07
+  Coverage date: 2026/3/31 - 11:01:03 - 2026/3/31 - 11:01:06
   Parser: MultiReport (3x Cobertura)
   Assemblies: 4
   Classes: 60
   Files: 47
   Line coverage: 92.1%
-  Covered lines: 3168
+  Covered lines: 3164
   Uncovered lines: 271
-  Coverable lines: 3439
-  Total lines: 8088
+  Coverable lines: 3435
+  Total lines: 7940
   Branch coverage: 88.8% (1001 of 1127)
   Covered branches: 1001
   Total branches: 1127
@@ -59,7 +59,7 @@ Lunarium.Logging                                                   91.3%
   Lunarium.Logging.Target.TextOutputIncludeConfig                   100%
   Lunarium.Logging.Utils.LogUtils                                   100%
   Lunarium.Logging.Wrapper.LoggerWrapper                            100%
-  Lunarium.Logging.Writer.LogColorTextWriter                       87.6%
+  Lunarium.Logging.Writer.LogColorTextWriter                       87.4%
   Lunarium.Logging.Writer.LogJsonWriter                            92.7%
   Lunarium.Logging.Writer.LogTextWriter                            98.5%
   Lunarium.Logging.Writer.LogWriter                                85.1%
