@@ -10,7 +10,7 @@
     <IsAotCompatible>true</IsAotCompatible>
 
     <!-- ===== NuGet Info ===== -->
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Cyanflower</Authors>
     <Description>HTTP batch sink for Lunarium.Logging. Supports Seq (CLEF/NDJSON), Grafana Loki (Push API v1), and generic JSON endpoints. Zero external NuGet dependencies.</Description>
 
