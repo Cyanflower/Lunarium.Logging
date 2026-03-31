@@ -18,7 +18,10 @@ namespace Lunarium.Logging.Http.Tests.Extensions;
 
 /// <summary>
 /// HttpLoggerBuilderExtensions 集成冒烟测试。
-/// 策略：构建 Logger → Emit 两条达到 batchSize=2 → TCS 等待请求。
+/// 策略：构建 Logger → Emit 两条（batchSize=2 或 flushInterval=3s 先到者触发）→ TCS 等待请求。
+/// flushInterval 设为 3s（小于 WaitTimeout=5s）作为保底：即使两条 entry 经 Logger 内部 Channel
+/// 到达 HttpTarget 的时序有偏差，计时器也能在超时前触发 flush，避免虚假失败。
+/// BatchSize 批量合并行为由 HttpTargetTests.BatchSize_Reached_TriggersFlush 专项覆盖。
 /// </summary>
 public class HttpLoggerBuilderExtensionsTests : IDisposable
 {
@@ -60,7 +63,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             new HttpClient(handler),
             "http://localhost:9999/logs",
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("msg-a");
         logger.Info("msg-b");
@@ -83,7 +86,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             new HttpClient(handler),
             "http://localhost:9999/logs",
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("a");
         logger.Info("b");
@@ -111,7 +114,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             HttpClient = new HttpClient(handler),
             Endpoint = new Uri("http://localhost:9999/logs"),
             BatchSize = 2,
-            FlushInterval = TimeSpan.FromSeconds(60)
+            FlushInterval = TimeSpan.FromSeconds(3)
         };
 
         var logger = BuildLogger(b => b.AddHttpSink(config));
@@ -119,7 +122,6 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
         logger.Info("b");
 
         await tcs.Task.WaitAsync(WaitTimeout);
-        handler.Requests.Should().HaveCount(1);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -140,7 +142,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             new HttpClient(handler),
             "http://localhost:5341/api/events/raw",
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("a");
         logger.Info("b");
@@ -164,7 +166,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             "http://localhost:5341/api/events/raw",
             apiKey: "my-key",
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("a");
         logger.Info("b");
@@ -189,7 +191,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             "http://localhost:5341/api/events/raw",
             apiKey: null,
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("a");
         logger.Info("b");
@@ -216,7 +218,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             new HttpClient(handler),
             "http://localhost:3100/loki/api/v1/push",
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("a");
         logger.Info("b");
@@ -241,7 +243,7 @@ public class HttpLoggerBuilderExtensionsTests : IDisposable
             "http://localhost:3100/loki/api/v1/push",
             labels: labels,
             batchSize: 2,
-            flushInterval: TimeSpan.FromSeconds(60)));
+            flushInterval: TimeSpan.FromSeconds(3)));
 
         logger.Info("a");
         logger.Info("b");

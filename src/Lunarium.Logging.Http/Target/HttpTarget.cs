@@ -173,22 +173,29 @@ public sealed class HttpTarget : ILogTarget
 
         while (true)
         {
-            // 双触发：FlushInterval 到期 OR Channel 有数据可读
+            // 双触发：BatchSize 满 OR FlushInterval 到期，先到者触发 flush。
+            // 每次外层循环创建一个 FlushInterval 计时器，在此区间内持续读取直到 batch 满。
             using var cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownToken);
             cts.CancelAfter(_flushInterval);
 
             try
             {
-                await reader.WaitToReadAsync(cts.Token).ConfigureAwait(false);
+                // 持续累积，直到 batch 满（BatchSize 触发）或计时器到期（FlushInterval 触发）
+                while (buffer.Count < _batchSize)
+                {
+                    if (!await reader.WaitToReadAsync(cts.Token).ConfigureAwait(false))
+                        break; // channel 已完成（writer TryComplete 且队列已空）
+
+                    while (buffer.Count < _batchSize && reader.TryRead(out var entry))
+                        buffer.Add(entry);
+                }
             }
             catch (OperationCanceledException)
             {
-                // FlushInterval 到期 或 shutdownToken 触发，继续执行 drain
+                // FlushInterval 到期 或 shutdownToken 触发，drain 剩余可读条目后继续
+                while (buffer.Count < _batchSize && reader.TryRead(out var entry))
+                    buffer.Add(entry);
             }
-
-            // 读取 min(可读数量, batchSize) 条
-            while (buffer.Count < _batchSize && reader.TryRead(out var entry))
-                buffer.Add(entry);
 
             if (buffer.Count > 0)
             {
