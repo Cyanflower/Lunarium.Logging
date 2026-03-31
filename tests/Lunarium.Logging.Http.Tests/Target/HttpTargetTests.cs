@@ -152,7 +152,7 @@ public class HttpTargetTests
     [Fact]
     public async Task Send_FirstFailure_RetriesAndSucceeds()
     {
-        // 首次 500，重试 200
+        // 首次 500，重试 200；batchSize=1 避免多条 entry 被分批触发的时序竞争
         int callCount = 0;
         var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         var handler = new FakeHttpHandler((_, _) =>
@@ -164,8 +164,7 @@ public class HttpTargetTests
                 : new HttpResponseMessage(HttpStatusCode.OK));
         });
 
-        using var target = MakeTarget(handler);
-        target.Emit(EntryFactory.Make());
+        using var target = MakeTarget(handler, batchSize: 1);
         target.Emit(EntryFactory.Make());
 
         await tcs.Task.WaitAsync(WaitTimeout);
