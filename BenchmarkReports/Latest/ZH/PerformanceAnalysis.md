@@ -1,8 +1,8 @@
 # 性能分析报告
 
-> Benchmark Report 出自 Lunarium.Logging.Benchmarks (基于 BenchmarkDotNet)
-> 本篇分析出自 Claude Sonnet 4.6 (基于 Baseline-2026-03-30 Markdown 报告)
-> 测试环境：Intel Core i7-8750H @ 2.20GHz (Coffee Lake)，6C/12T，Fedora Linux 42，.NET 10.0.2，X64 RyuJIT AVX2
+> Benchmark Report 出自 Lunarium.Logging.Benchmarks (基于 BenchmarkDotNet)  
+> 本篇分析出自 Claude Sonnet 4.6 (基于 Baseline-2026-03-30 Markdown 报告)  
+> 测试环境：Intel Core i7-8750H @ 2.20GHz (Coffee Lake), 6C/12T, Fedora Linux 42(6.18.8-100.fc42.x86_64), .NET 10.0.2, X64 RyuJIT AVX2  
 > 跨平台差异见 [PlatformDifferences.md](PlatformDifferences.md)
 
 ---
