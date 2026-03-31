@@ -27,6 +27,11 @@ public static class LoggerBuilderExtensions
     /// Adds a console output sink to the logger builder.
     /// </summary>
     /// <param name="builder">The <see cref="LoggerBuilder"/> to configure.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
+    /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Defaults to <see langword="false"/>.</param>
+    /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="true"/>.</param>
+    /// <param name="FilterConfig">Optional filter configuration for level and context filtering.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddConsoleSink(
         this LoggerBuilder builder,
@@ -63,6 +68,11 @@ public static class LoggerBuilderExtensions
     /// <param name="builder">The <see cref="LoggerBuilder"/> to configure.</param>
     /// <param name="logFilePath">Base path for the log file. The date is appended automatically, e.g. <c>logs/app-2023-10-27.log</c>.</param>
     /// <param name="maxFile">Maximum number of log files to retain. 0 or negative means unlimited.</param>
+    /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Defaults to <see langword="false"/>.</param>
+    /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="false"/>.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
+    /// <param name="FilterConfig">Optional filter configuration for level and context filtering.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddTimedRotatingFileSink(
         this LoggerBuilder builder,
@@ -93,6 +103,11 @@ public static class LoggerBuilderExtensions
     /// <param name="logFilePath">Base path for the log file.</param>
     /// <param name="maxFileSizeMB">Maximum size of a single file in MB.</param>
     /// <param name="maxFile">Maximum number of log files to retain.</param>
+    /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Defaults to <see langword="false"/>.</param>
+    /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="false"/>.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
+    /// <param name="FilterConfig">Optional filter configuration for level and context filtering.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddSizedRotatingFileSink(
         this LoggerBuilder builder,
@@ -127,6 +142,11 @@ public static class LoggerBuilderExtensions
     /// <param name="rotateOnNewDay">When <see langword="true"/>, a new file is created at the start of each day.</param>
     /// <param name="maxFile">Maximum number of log files to retain. ≤0 means unlimited.
     /// At least one rotation strategy must be enabled when this is positive.</param>
+    /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Defaults to <see langword="false"/>.</param>
+    /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="false"/>.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
+    /// <param name="FilterConfig">Optional filter configuration for level and context filtering.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddRotatingFileSink(
         this LoggerBuilder builder, string logFilePath,
@@ -161,7 +181,9 @@ public static class LoggerBuilderExtensions
     /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="false"/>.</param>
     /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Takes precedence over <paramref name="isColor"/>. Defaults to <see langword="false"/>.</param>
     /// <param name="capacity">Channel capacity. <see langword="null"/> creates an unbounded channel; when set, new entries are dropped when the channel is full.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
     /// <param name="FilterConfig">Optional filter configuration.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddStringChannelSink(
         this LoggerBuilder builder,
@@ -192,7 +214,9 @@ public static class LoggerBuilderExtensions
     /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="false"/>.</param>
     /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Takes precedence over <paramref name="isColor"/>. Defaults to <see langword="false"/>.</param>
     /// <param name="capacity">Channel capacity. <see langword="null"/> creates an unbounded channel; when set, new entries are dropped when the channel is full.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
     /// <param name="FilterConfig">Optional filter configuration.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddUtf8ByteChannelSink(
         this LoggerBuilder builder,
@@ -221,6 +245,7 @@ public static class LoggerBuilderExtensions
     /// <param name="builder">The <see cref="LoggerBuilder"/> to configure.</param>
     /// <param name="reader">Channel reader for consuming <see cref="LogEntry"/> instances.</param>
     /// <param name="capacity">Channel capacity. <see langword="null"/> creates an unbounded channel; when set, new entries are dropped when the channel is full.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
     /// <param name="FilterConfig">Optional filter configuration.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddLogEntryChannelSink(
@@ -243,6 +268,7 @@ public static class LoggerBuilderExtensions
     /// <param name="reader">Channel reader for consuming transformed <typeparamref name="T"/> values.</param>
     /// <param name="transform">Delegate that converts a <see cref="LogEntry"/> into <typeparamref name="T"/>.</param>
     /// <param name="capacity">Channel capacity. <see langword="null"/> creates an unbounded channel; when set, new entries are dropped when the channel is full.</param>
+    /// <param name="sinkName">Optional name for this sink, used with <see cref="LoggerManager"/> for runtime updates.</param>
     /// <param name="FilterConfig">Optional filter configuration.</param>
     /// <returns>The same <see cref="LoggerBuilder"/> instance for chaining.</returns>
     public static LoggerBuilder AddChannelSink<T>(

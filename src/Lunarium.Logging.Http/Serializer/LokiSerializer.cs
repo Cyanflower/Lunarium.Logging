@@ -46,7 +46,6 @@ public sealed class LokiSerializer : IHttpLogSerializer
         _labels = labels;
     }
 
-    /// <param name="labels">Loki stream labels.</param>
     // public LokiSerializer(Dictionary<string, string> labels)
     //     : this((IReadOnlyDictionary<string, string>)labels)
     // { }

@@ -28,7 +28,7 @@ namespace Lunarium.Logging.Extensions;
 /// <see cref="ILoggerProvider"/> implementation that bridges
 /// Microsoft.Extensions.Logging to a <see cref="Lunarium.Logging.ILogger"/> instance.
 /// Each category name is mapped to a <see cref="LunariumMsLoggerAdapter"/> backed by
-/// <see cref="Lunarium.Logging.ILogger.ForContext(string)"/>.
+/// <c>ForContext(string)</c>.
 /// </summary>
 public class LunariumLoggerProvider : ILoggerProvider, ISupportExternalScope
 {

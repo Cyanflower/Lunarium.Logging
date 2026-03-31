@@ -81,6 +81,9 @@ public sealed class FileTarget : ILogTarget, IJsonTextTarget, ITextTarget
     /// Maximum number of log files to retain. ≤0 means unlimited.
     /// At least one rotation strategy must be enabled when this is positive.
     /// </param>
+    /// <param name="toJson">When <see langword="true"/>, entries are rendered as JSON. Defaults to <see langword="false"/>.</param>
+    /// <param name="isColor">When <see langword="true"/>, ANSI color codes are included. Defaults to <see langword="false"/>.</param>
+    /// <param name="textOutputIncludeConfig">Controls which fields are included in text output. <see langword="null"/> uses all-included defaults.</param>
     /// <exception cref="ArgumentException">Thrown when <paramref name="maxFile"/> is positive but no rotation strategy is enabled.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the specified path is already in use by another active <see cref="FileTarget"/>.</exception>
     public FileTarget(
