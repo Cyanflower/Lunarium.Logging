@@ -54,8 +54,15 @@ ILogger logger = new LoggerBuilder()
     .Build();
 
 logger.Info("Server started on port {Port}", 8080);
+// [2026-03-31 12:00:00.000] [INF] [MyApp] Server started on port 8080
+
 logger.Warning("High memory usage: {UsageMB} MB", 1024);
+// [2026-03-31 12:00:00.000] [WRN] [MyApp] High memory usage: 1024 MB
+
 logger.Error(ex, "Request failed for user {UserId}", userId);
+// [2026-03-31 12:00:00.000] [ERR] [MyApp] Request failed for user 42   (stderr)
+// System.Exception: Connection timeout
+//    at ...
 ```
 
 File rotation is built in — no extra packages needed:
@@ -75,12 +82,15 @@ new LoggerBuilder()
 ```csharp
 // {@} — render as structured JSON
 logger.Info("Order created: {@Order}", order);
+// [2026-03-31 12:00:00.000] [INF] [MyApp] Order created: {"Id":42,"Total":99.99}
 
 // {$} — force ToString()
 logger.Info("Status: {$Status}", myEnum);
+// [2026-03-31 12:00:00.000] [INF] [MyApp] Status: Active
 
 // Alignment and formatting
 logger.Info("Price: {Amount,10:F2} USD", 42.5);
+// [2026-03-31 12:00:00.000] [INF] [MyApp] Price:      42.50 USD
 ```
 
 ### Context and Scoping
@@ -89,6 +99,7 @@ logger.Info("Price: {Amount,10:F2} USD", 42.5);
 // Attach a source context by string
 ILogger orderLog = logger.ForContext("Order.Processor");
 orderLog.Info("Processing order {Id}", orderId);
+// [2026-03-31 12:00:00.000] [INF] [MyApp] [Order.Processor] Processing order 1001
 
 // Or by type — uses the class name as the context string
 ILogger payLog = logger.ForContext<PaymentService>();
@@ -96,7 +107,10 @@ ILogger payLog = logger.ForContext<PaymentService>();
 // Chain contexts: "Order.Processor" → ForContext("Validator") = "Order.Processor.Validator"
 ILogger validatorLog = orderLog.ForContext("Validator");
 validatorLog.Info("Validating order {Id}", orderId);
+// [2026-03-31 12:00:00.000] [INF] [MyApp] [Order.Processor.Validator] Validating order 1001
 ```
+
+Use it standalone as shown above, or integrate it into ASP.NET Core / Generic Host as a full drop-in replacement for the default `Microsoft.Extensions.Logging` provider — see [Integration with Generic Host](#integration-with-generic-host).
 
 ---
 
