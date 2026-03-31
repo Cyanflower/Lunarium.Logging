@@ -1,0 +1,46 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/Lunarium.Logging/Lunarium.Logging.csproj",
+            "src/Lunarium.Logging.Hosting/Lunarium.Logging.Hosting.csproj",
+            "src/Lunarium.Logging.Configuration/Lunarium.Logging.Configuration.csproj",
+            "src/Lunarium.Logging.Http/Lunarium.Logging.Http.csproj"
+          ],
+          "src": "../"
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["api/**.yml", "api/**/toc.yml"]
+      },
+      {
+        "files": ["articles/**.md", "articles/**/toc.yml", "toc.yml", "index.md"]
+      }
+    ],
+    "resource": [
+      {
+        "files": ["images/**"]
+      }
+    ],
+    "output": "_site",
+    "template": ["default", "modern"],
+    "globalMetadata": {
+      "_appName": "Lunarium.Logging",
+      "_appTitle": "Lunarium.Logging Docs",
+      "_appFooter": "Copyright © 2026 Cyanflower · Apache-2.0",
+      "_enableSearch": true,
+      "_appTheme": "dark",
+      "_gitContribute": {
+        "repo": "https://github.com/Cyanflower/Lunarium.Logging",
+        "branch": "main"
+      }
+    }
+  }
+}

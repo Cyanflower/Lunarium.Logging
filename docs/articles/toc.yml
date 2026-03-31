@@ -1,0 +1,14 @@
+- name: Introduction
+  href: ../index.md
+- name: Quick Start
+  href: quickstart.md
+- name: Sink Configuration
+  href: sinks.md
+- name: Hosting & DI
+  href: hosting.md
+- name: appsettings.json
+  href: configuration.md
+- name: HTTP Sink
+  href: http-sink.md
+- name: Advanced Usage
+  href: advanced.md

@@ -25,6 +25,9 @@ Many structured logging libraries split basic functionality across multiple pack
 - **Structured message templates** — `{Property}`, `{@Object}`, `{Value,10:F2}` syntax with alignment, formatting, and destructuring support.
 - **Simple, intuitive API** — Fluent builder, sensible defaults, no ceremony.
 
+### Console Example
+![Colored console output](assets/ConsoleSample.png)
+
 ---
 
 ## Packages
@@ -109,8 +112,6 @@ ILogger validatorLog = orderLog.ForContext("Validator");
 validatorLog.Info("Validating order {Id}", orderId);
 // [2026-03-31 12:00:00.000] [INF] [MyApp] [Order.Processor.Validator] Validating order 1001
 ```
-
-![Colored console output](assets/ConsoleSample.png)
 
 Use it standalone as shown above, or integrate it into ASP.NET Core / Generic Host as a full drop-in replacement for the default `Microsoft.Extensions.Logging` provider — see [Integration with Generic Host](#integration-with-generic-host).
 
