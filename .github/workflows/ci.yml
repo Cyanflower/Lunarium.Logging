@@ -3,17 +3,19 @@ name: CI
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - '**.md'
-      - 'example/**'
-      - 'BenchmarkReports/**'
-      - 'CoverageReport/**'
+    paths:
+      - 'src/**/*.cs'
+      - 'src/**/*.csproj'
+      - 'tests/**/*.cs'
+      - 'tests/**/*.csproj'
+      - '*.sln'
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - 'example/**'
-      - 'BenchmarkReports/**'
-      - 'CoverageReport/**'
+    paths:
+      - 'src/**/*.cs'
+      - 'src/**/*.csproj'
+      - 'tests/**/*.cs'
+      - 'tests/**/*.csproj'
+      - '*.sln'
 
 jobs:
   build-and-test:
