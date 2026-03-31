@@ -1,0 +1,34 @@
+name: CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Pack & Publish to NuGet
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build
+
+      - name: Pack
+        run: |
+          dotnet pack src/Lunarium.Logging/Lunarium.Logging.csproj                           --configuration Release --no-build --output ./nupkgs
+          dotnet pack src/Lunarium.Logging.Hosting/Lunarium.Logging.Hosting.csproj           --configuration Release --no-build --output ./nupkgs
+          dotnet pack src/Lunarium.Logging.Configuration/Lunarium.Logging.Configuration.csproj --configuration Release --no-build --output ./nupkgs
+          dotnet pack src/Lunarium.Logging.Http/Lunarium.Logging.Http.csproj                 --configuration Release --no-build --output ./nupkgs
+
+      - name: Publish to NuGet.org
+        run: dotnet nuget push "./nupkgs/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
