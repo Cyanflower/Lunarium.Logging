@@ -11,7 +11,7 @@
     <IsAotCompatible>true</IsAotCompatible>
     
     <!-- ===== NuGet Info ===== -->
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Cyanflower</Authors>
     <Description>A lightweight, high-performance structured logging library for .NET. Zero external dependencies, zero hot-path allocations, and native AOT compatible. Console, File, and Channel sinks built in — no extra packages required for everyday use.</Description>
 
