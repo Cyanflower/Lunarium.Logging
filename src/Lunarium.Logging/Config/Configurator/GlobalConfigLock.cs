@@ -12,16 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Config.GlobalConfig;
+namespace Lunarium.Logging.Config.Configurator;
 
-// 全局集合自动解构开关
-// 关闭时 {@list} 仍触发解构，但普通 {value} 遇到集合类型不会自动展开为 JSON 数组
-internal static class DestructuringConfig
+// 全局配置一次性锁，确保 GlobalConfigurator 只能在 Build() 前配置一次
+// Build() 时若未调用过 Configure()，会自动应用默认值并锁定；之后不可重置（进程级单例）
+internal static class GlobalConfigLock
 {
-    internal static bool AutoDestructureCollections { get; private set; } = false;
+    // true 后拒绝再次配置，GlobalConfigurator.Apply() 和 Build() 自动调用 CompleteConfig()
+    internal static bool Configured = false;
 
-    internal static void EnableAutoDestructuring()
+    internal static void CompleteConfig()
     {
-        AutoDestructureCollections = true;
+        Configured = true;
     }
 }

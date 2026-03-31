@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Config.GlobalConfig;
+namespace Lunarium.Logging.Config.Configurator;
 
 // 时间戳时区模式，决定 GetTimestamp() 返回哪个时区的时间
 internal enum LogTimestampMode

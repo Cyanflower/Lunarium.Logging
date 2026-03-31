@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Config.Models;
+namespace Lunarium.Logging;
 
 /// <summary>
 /// Encapsulates the filter settings for a single log sink, controlling which

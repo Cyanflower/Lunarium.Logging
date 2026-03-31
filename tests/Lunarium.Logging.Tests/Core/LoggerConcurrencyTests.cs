@@ -16,9 +16,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Channels;
 using FluentAssertions;
-using Lunarium.Logging.Config.GlobalConfig;
+using Lunarium.Logging.Config.Configurator;
 using Lunarium.Logging.Internal;
-using Lunarium.Logging.Config.Models;
+using Lunarium.Logging.Config;
 using Lunarium.Logging.Core;
 using Lunarium.Logging.Target;
 

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 using FluentAssertions;
-using Lunarium.Logging.Config.GlobalConfig;
+using Lunarium.Logging.Config.Configurator;
 using Lunarium.Logging.Utils;
 using Xunit;
 

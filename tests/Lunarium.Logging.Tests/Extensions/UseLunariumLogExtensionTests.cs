@@ -13,7 +13,7 @@
 // limitations under the License.
 
 using Lunarium.Logging.Extensions;
-using Lunarium.Logging.Config.GlobalConfig;
+using Lunarium.Logging.Config.Configurator;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

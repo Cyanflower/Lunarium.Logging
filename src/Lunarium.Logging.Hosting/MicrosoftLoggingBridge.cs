@@ -127,17 +127,17 @@ internal sealed class LunariumMsLoggerAdapter : Microsoft.Extensions.Logging.ILo
     }
 
     // MEL 有 Trace 级别，映射到 Lunarium 的 Debug；其他级别一一对应
-    private static Lunarium.Logging.Models.LogLevel ConvertLogLevel(Microsoft.Extensions.Logging.LogLevel msLogLevel)
+    private static Lunarium.Logging.LogLevel ConvertLogLevel(Microsoft.Extensions.Logging.LogLevel msLogLevel)
     {
         return msLogLevel switch
         {
-            Microsoft.Extensions.Logging.LogLevel.Trace => Lunarium.Logging.Models.LogLevel.Debug,
-            Microsoft.Extensions.Logging.LogLevel.Debug => Lunarium.Logging.Models.LogLevel.Debug,
-            Microsoft.Extensions.Logging.LogLevel.Information => Lunarium.Logging.Models.LogLevel.Info,
-            Microsoft.Extensions.Logging.LogLevel.Warning => Lunarium.Logging.Models.LogLevel.Warning,
-            Microsoft.Extensions.Logging.LogLevel.Error => Lunarium.Logging.Models.LogLevel.Error,
-            Microsoft.Extensions.Logging.LogLevel.Critical => Lunarium.Logging.Models.LogLevel.Critical,
-            _ => Lunarium.Logging.Models.LogLevel.Info
+            Microsoft.Extensions.Logging.LogLevel.Trace => Lunarium.Logging.LogLevel.Debug,
+            Microsoft.Extensions.Logging.LogLevel.Debug => Lunarium.Logging.LogLevel.Debug,
+            Microsoft.Extensions.Logging.LogLevel.Information => Lunarium.Logging.LogLevel.Info,
+            Microsoft.Extensions.Logging.LogLevel.Warning => Lunarium.Logging.LogLevel.Warning,
+            Microsoft.Extensions.Logging.LogLevel.Error => Lunarium.Logging.LogLevel.Error,
+            Microsoft.Extensions.Logging.LogLevel.Critical => Lunarium.Logging.LogLevel.Critical,
+            _ => Lunarium.Logging.LogLevel.Info
         };
     }
 }

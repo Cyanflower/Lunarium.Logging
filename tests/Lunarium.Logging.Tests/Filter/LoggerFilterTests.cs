@@ -15,7 +15,6 @@
 using FluentAssertions;
 using Lunarium.Logging.Filter;
 using Lunarium.Logging.Models;
-using Lunarium.Logging.Config.Models;
 using Lunarium.Logging.Parser;
 
 namespace Lunarium.Logging.Tests.Filter;

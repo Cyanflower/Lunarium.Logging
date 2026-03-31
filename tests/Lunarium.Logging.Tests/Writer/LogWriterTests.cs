@@ -13,7 +13,7 @@
 // limitations under the License.
 
 using System.Threading.Channels;
-using Lunarium.Logging.Config.GlobalConfig;
+using Lunarium.Logging.Config.Configurator;
 using Lunarium.Logging.Models;
 using Lunarium.Logging.Parser;
 using Lunarium.Logging.Target;

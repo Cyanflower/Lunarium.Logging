@@ -14,7 +14,7 @@
 
 using Lunarium.Logging.Target;
 
-namespace Lunarium.Logging.Config.Models;
+namespace Lunarium.Logging;
 
 /// <summary>
 /// Complete configuration for a file sink, covering all rotation modes:

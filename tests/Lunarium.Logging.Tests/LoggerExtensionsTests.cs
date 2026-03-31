@@ -14,7 +14,6 @@
 
 using System.Threading.Channels;
 using Lunarium.Logging.Target;
-using Lunarium.Logging.Config.Models;
 using Lunarium.Logging.Models;
 using Lunarium.Logging.Wrapper;
 using NSubstitute;

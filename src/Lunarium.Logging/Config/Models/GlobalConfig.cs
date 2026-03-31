@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Config.Models;
+namespace Lunarium.Logging.Config;
 
 // 全局配置 POCO，与 appsettings.json 节点一对一映射
 // 所有属性必须可空：null 表示不修改对应内部默认值，GlobalConfigApplier 会跳过 null 属性

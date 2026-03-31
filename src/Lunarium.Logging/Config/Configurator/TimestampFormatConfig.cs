@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Config.GlobalConfig;
+namespace Lunarium.Logging.Config.Configurator;
 
 // JSON 输出使用的时间戳格式模式，默认 ISO8601（对齐大多数日志平台的期望格式）
 internal enum JsonTimestampMode

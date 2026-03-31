@@ -93,7 +93,7 @@ src/Lunarium.Logging/
 ├── LoggerManager.cs         # LoggerManager（public static，ConcurrentDictionary<string,Logger>，运行时动态配置管理）
 │                            #   RegisterLogger（internal）/ UpdateSinkConfig / UpdateLoggerConfig / UpdateAllLoggerConfig / GetLoggerList
 ├── GlobalConfigurator.cs    # 全局配置入口（Fluent API，Apply() 完成）
-├── GlobalUsings.cs          # 全局 using（含 Lunarium.Logging.Core / Config.GlobalConfig / Config.Models）
+├── GlobalUsings.cs          # 全局 using（含 Lunarium.Logging.Core / Config.Configurator / Config）
 ├── GlobalConfigExtensions.cs# 占位符文件（暂未实现）
 ├── ISinkConfig.cs           # Sink 配置对象接口（含 Enabled + FilterConfig 引用）
 ├── Lunarium.Logging.csproj   # 主项目文件
@@ -107,25 +107,25 @@ src/Lunarium.Logging/
 │
 ├── Models/
 │   ├── LogEntry.cs          # 不可变日志事件（sealed，含 LoggerNameBytes/ContextBytes/Scope/延迟解析的 MessageTemplate）
-│   └── LogLevel.cs          # Debug/Info/Warning/Error/Critical 枚举
+│   └── LogLevel.cs          # Debug/Info/Warning/Error/Critical 枚举（命名空间 Lunarium.Logging）
 │
 ├── Config/
-│   ├── GlobalConfig/
-│   │   ├── GlobalConfigLock.cs       # GlobalConfigLock（internal，命名空间 Lunarium.Logging.Config.GlobalConfig）
+│   ├── Configurator/
+│   │   ├── GlobalConfigLock.cs       # GlobalConfigLock（internal，命名空间 Lunarium.Logging.Config.Configurator）
 │   │   ├── TimestampConfig.cs        # 时区配置（Local / UTC / Custom，internal）
 │   │   ├── TimestampFormatConfig.cs  # 时间戳格式（Unix / UnixMs / ISO8601 / Custom，internal）
 │   │   ├── DestructuringConfig.cs    # 集合自动解构开关（internal）
 │   │   └── JsonSerializationConfig.cs# JSON 序列化配置（UnsafeRelaxedJsonEscaping、缩进、自定义 Resolver，internal）
 │   └── Models/
-│       ├── FilterConfig.cs      # 单个 Sink 配置（级别过滤、上下文过滤；命名空间 Lunarium.Logging.Config.Models）
+│       ├── FilterConfig.cs      # 单个 Sink 配置（级别过滤、上下文过滤；命名空间 Lunarium.Logging）
 │       │                        #   + TextOutputIncludeConfig record（控制字段可见性：Timestamp/Level/LoggerName/Context）
-│       ├── ConsoleSinkConfig.cs # ConsoleTarget 完整配置（public sealed record，含 Enabled 属性，默认 true）
-│       ├── FileSinkConfig.cs    # FileTarget 完整配置（public sealed record，含 Enabled 属性，默认 true）
+│       ├── ConsoleSinkConfig.cs # ConsoleTarget 完整配置（public sealed record，含 Enabled 属性，默认 true；命名空间 Lunarium.Logging）
+│       ├── FileSinkConfig.cs    # FileTarget 完整配置（public sealed record，含 Enabled 属性，默认 true；命名空间 Lunarium.Logging）
 │       │                        #   LogFilePath 默认 ""（非 required，配置绑定兼容），空值时 LoggerConfigApplier 自动跳过
-│       ├── GlobalConfig.cs      # 全局配置模型（与 appsettings.json 一一映射，sealed class，所有属性可空）
+│       ├── GlobalConfig.cs      # 全局配置模型（与 appsettings.json 一一映射，sealed class，所有属性可空；命名空间 Lunarium.Logging.Config）
 │       │                        #   TimeZone / Text/JsonTimestampMode / EnableUnsafeRelaxedJsonEscaping 等
 │       │                        #   + TimestampMode 枚举（Unix/UnixMs/ISO8601/Custom）
-│       └── LoggingConfig.cs     # LoggingConfig（GlobalConfig? + List<LoggerConfig>）
+│       └── LoggingConfig.cs     # LoggingConfig（GlobalConfig? + List<LoggerConfig>；命名空间 Lunarium.Logging.Config）
 │                                #   LoggerConfig（LoggerName 默认 ""（非 required，配置绑定兼容）+ Dictionary<string,ConsoleSinkConfig> + Dictionary<string,FileSinkConfig>）
 │
 ├── Utils/

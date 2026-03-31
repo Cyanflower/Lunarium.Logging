@@ -21,12 +21,11 @@
 
 using System.Text.Json.Serialization;
 using System.Threading.Channels;
-using Lunarium.Logging.Models;
+using Lunarium.Logging.Config;
 using Lunarium.Logging.Target;
 using Lunarium.Logging.Configuration;
 using Lunarium.Logging.Extensions;
 using Microsoft.Extensions.Hosting;
-using Lunarium.Logging.Config.Models;
 
 namespace Lunarium.Logging;
 
@@ -266,7 +265,7 @@ public static class LoggerManagerExample
         LoggerManager.UpdateSinkConfig(
             loggerName: "Runtime",
             sinkName:   "console",           // 构建时通过 sinkName 参数指定的名称
-            sinkConfig: new Lunarium.Logging.Config.Models.ConsoleSinkConfig
+            sinkConfig: new ConsoleSinkConfig
             {
                 Enabled      = true,
                 FilterConfig = new FilterConfig { LogMinLevel = LogLevel.Debug },
@@ -275,14 +274,14 @@ public static class LoggerManagerExample
         // ── 用 LoggerConfig 更新单个 Logger 的全部 Sink 配置 ─────────────────
         // 适合从配置文件重新读取后全量替换
         LoggerManager.UpdateLoggerConfig(
-            loggerConfigs: new Lunarium.Logging.Config.Models.LoggerConfig
+            loggerConfigs: new LoggerConfig
             {
                 LoggerName = "Runtime",
-                ConsoleSinks = new Dictionary<string, Lunarium.Logging.Config.Models.ConsoleSinkConfig>
+                ConsoleSinks = new Dictionary<string, ConsoleSinkConfig>
                 {
                     ["console"] = new() { FilterConfig = new FilterConfig { LogMinLevel = LogLevel.Info } }
                 },
-                FileSinks = new Dictionary<string, Lunarium.Logging.Config.Models.FileSinkConfig>
+                FileSinks = new Dictionary<string, FileSinkConfig>
                 {
                     ["main"] = new()
                     {

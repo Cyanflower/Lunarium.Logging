@@ -13,7 +13,6 @@
 // limitations under the License.
 
 global using Lunarium.Logging;
-global using Lunarium.Logging.Config.Models;
 global using Lunarium.Logging.Models;
 global using Lunarium.Logging.InternalLoggerUtils;
 global using Lunarium.Logging.Http.Serializer;

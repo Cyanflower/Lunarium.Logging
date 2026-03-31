@@ -14,7 +14,7 @@
 
 using System.Reflection;
 using System.Text.Json.Serialization.Metadata;
-using Lunarium.Logging.Config.GlobalConfig;
+using Lunarium.Logging.Config.Configurator;
 using Lunarium.Logging.Configuration;
 using Microsoft.Extensions.Configuration;
 

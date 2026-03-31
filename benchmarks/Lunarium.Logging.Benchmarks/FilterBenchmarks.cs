@@ -16,7 +16,6 @@ using BenchmarkDotNet.Attributes;
 using Lunarium.Logging.Filter;
 using Lunarium.Logging.Models;
 using Lunarium.Logging.Parser;
-using Lunarium.Logging.Config.Models;
 
 namespace Lunarium.Logging.Benchmarks;
 

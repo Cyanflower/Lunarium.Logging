@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Config.Models;
+namespace Lunarium.Logging.Config;
 
 // 供 appsettings.json 反序列化使用的顶层配置容器
 /// <summary>

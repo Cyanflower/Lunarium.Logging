@@ -15,6 +15,6 @@
 global using Lunarium.Logging.Core;
 global using Lunarium.Logging.Internal;
 global using Lunarium.Logging.InternalLoggerUtils;
-global using Lunarium.Logging.Config.GlobalConfig;
-global using Lunarium.Logging.Config.Models;
+global using Lunarium.Logging.Config.Configurator;
+global using Lunarium.Logging.Config;
 global using Lunarium.Logging.Models;

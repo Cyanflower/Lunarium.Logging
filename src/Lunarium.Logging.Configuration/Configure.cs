@@ -13,7 +13,7 @@
 // limitations under the License.
 
 using Lunarium.Logging;
-using Lunarium.Logging.Config.Models;
+using Lunarium.Logging.Config;
 
 namespace Lunarium.Logging.Configuration;
 

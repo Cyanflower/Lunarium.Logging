@@ -18,7 +18,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.Unicode;
 
-namespace Lunarium.Logging.Config.GlobalConfig;
+namespace Lunarium.Logging.Config.Configurator;
 
 // JSON 序列化全局配置，所有使用 {@Object} 解构的 Writer 共享同一份 JsonSerializerOptions
 // Options 采用懒加载 + 双检锁；调用任意 ConfigXxx 后会重置 _options，下次访问时重新构建

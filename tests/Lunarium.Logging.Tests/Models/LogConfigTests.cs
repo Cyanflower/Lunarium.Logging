@@ -16,7 +16,7 @@ using System.Threading.Channels;
 using Lunarium.Logging.Models;
 using Lunarium.Logging.Parser;
 using Lunarium.Logging.Target;
-using Lunarium.Logging.Config.Models;
+using Lunarium.Logging.Config;
 using Lunarium.Logging.Core;
 
 namespace Lunarium.Logging.Tests.Models;

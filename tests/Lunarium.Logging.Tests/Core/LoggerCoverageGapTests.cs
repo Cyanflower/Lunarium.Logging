@@ -16,7 +16,6 @@ using System.Threading.Channels;
 using Lunarium.Logging.Models;
 using Lunarium.Logging.Parser;
 using Lunarium.Logging.Target;
-using Lunarium.Logging.Config.Models;
 using Lunarium.Logging.Core;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;

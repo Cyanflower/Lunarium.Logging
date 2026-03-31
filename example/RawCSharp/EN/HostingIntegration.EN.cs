@@ -24,12 +24,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Microsoft.Extensions.Logging;
 
-using Lunarium.Logging.Models;
 using Lunarium.Logging.Target;
 using Lunarium.Logging.Configuration;
 using Lunarium.Logging.Extensions;
 using Microsoft.Extensions.Hosting;
-using Lunarium.Logging.Config.Models;
 
 namespace Lunarium.Logging;
 

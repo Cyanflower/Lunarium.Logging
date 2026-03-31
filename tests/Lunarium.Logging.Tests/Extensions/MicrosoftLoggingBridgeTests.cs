@@ -16,7 +16,7 @@ using Lunarium.Logging.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using LmLogLevel = Lunarium.Logging.Models.LogLevel;
+using LmLogLevel = Lunarium.Logging.LogLevel;
 // Alias to distinguish same-named types
 using MsLogLevel = Microsoft.Extensions.Logging.LogLevel;
 

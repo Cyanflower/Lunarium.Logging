@@ -17,6 +17,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using Lunarium.Logging.Internal;
 using Lunarium.Logging.Parser;
+using Lunarium.Logging.Config.Configurator;
 
 namespace Lunarium.Logging.Http.Serializer;
 
@@ -223,7 +224,7 @@ public sealed class JsonArraySerializer : IHttpLogSerializer
         }
 
         if (pt.Destructuring == Destructuring.Destructure ||
-           (global::Lunarium.Logging.Config.GlobalConfig.DestructuringConfig.AutoDestructureCollections && value is Array))
+           (DestructuringConfig.AutoDestructureCollections && value is Array))
         {
             writer.WritePropertyName(pt.PropertyName);
             if (value is IDestructurable destructurable)
@@ -245,7 +246,7 @@ public sealed class JsonArraySerializer : IHttpLogSerializer
             }
             else
             {
-                JsonSerializer.Serialize(writer, value, global::Lunarium.Logging.Config.GlobalConfig.JsonSerializationConfig.Options);
+                JsonSerializer.Serialize(writer, value, JsonSerializationConfig.Options);
             }
             return;
         }

@@ -1,6 +1,4 @@
 using Lunarium.Logging;
-using Lunarium.Logging.Config.Models;
-using Lunarium.Logging.Models;
 
 // ── Logger setup ──────────────────────────────────────────────────────────────
 ILogger logger = new LoggerBuilder()

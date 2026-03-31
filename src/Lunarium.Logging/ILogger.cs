@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System.Runtime.CompilerServices;
-using Lunarium.Logging.Models;
 
 namespace Lunarium.Logging;
 

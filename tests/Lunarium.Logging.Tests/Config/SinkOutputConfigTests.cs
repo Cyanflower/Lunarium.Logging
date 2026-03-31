@@ -13,7 +13,7 @@
 // limitations under the License.
 
 using FluentAssertions;
-using Lunarium.Logging.Config.Models;
+using Lunarium.Logging.Config;
 using Lunarium.Logging.Models;
 
 namespace Lunarium.Logging.Tests.Config;

@@ -21,8 +21,6 @@
 // ============================================================
 
 using System.Threading.Channels;
-using Lunarium.Logging.Config.Models;
-using Lunarium.Logging.Models;
 using Lunarium.Logging.Target;
 
 namespace Lunarium.Logging;

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Lunarium.Logging.Models;
+namespace Lunarium.Logging;
 
 /// <summary>
 /// Severity levels for log events, ordered from lowest to highest.
