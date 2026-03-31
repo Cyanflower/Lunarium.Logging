@@ -1,0 +1,7 @@
+﻿Method,Mean,Error,StdDev,Ratio,RatioSD,Gen0,Allocated,Alloc Ratio
+'无规则，级别通过 (缓存命中)',9.059 ns,0.1969 ns,0.1842 ns,1.00,0.03,-,-,NA
+'Include 规则，context 匹配通过 (缓存命中)',8.846 ns,0.1349 ns,0.1126 ns,0.98,0.02,-,-,NA
+'Include 规则，context 不匹配被拒绝 (缓存命中)',8.783 ns,0.1233 ns,0.1093 ns,0.97,0.02,-,-,NA
+'Exclude 规则，context 不在排除列表通过 (缓存命中)',8.892 ns,0.1868 ns,0.1747 ns,0.98,0.03,-,-,NA
+'Exclude 规则，context 命中排除列表被拒绝 (缓存命中)',8.872 ns,0.1831 ns,0.1623 ns,0.98,0.03,-,-,NA
+'无规则，缓存未命中 (近似，3000 个唯一 context，超出 2048 后缓存清空)',"26,634.868 ns",511.3071 ns,568.3165 ns,"2,941.37",84.50,0.0305,219 B,NA

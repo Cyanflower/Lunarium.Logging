@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <IsAotCompatible>true</IsAotCompatible>
+
+    <!-- ===== NuGet Info ===== -->
+    <Version>1.0.0</Version>
+    <Authors>Cyanflower</Authors>
+    <Description>HTTP batch sink for Lunarium.Logging. Supports Seq (CLEF/NDJSON), Grafana Loki (Push API v1), and generic JSON endpoints. Zero external NuGet dependencies.</Description>
+
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Cyanflower/Lunarium.Logging</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Cyanflower/Lunarium.Logging.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>Lunarium.Logging.Http</PackageId>
+    <PackageTags>logging;logger;log;lunarium;dotnet;http;seq;loki;clef;sink</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Copyright>Copyright (c) Cyanflower 2026</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../icon.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Lunarium.Logging/Lunarium.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Lunarium.Logging.Http.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

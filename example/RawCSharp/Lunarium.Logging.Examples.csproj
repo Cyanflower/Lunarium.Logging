@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- 仅供编译校验，不发布 -->
+    <IsPublishable>false</IsPublishable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- 抑制 CS8618 等示例代码中常见的警告 -->
+    <NoWarn>CS8618;CS0649;CS0169</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Lunarium.Logging/Lunarium.Logging.csproj" />
+    <ProjectReference Include="../../src/Lunarium.Logging.Hosting/Lunarium.Logging.Hosting.csproj" />
+    <ProjectReference Include="../../src/Lunarium.Logging.Configuration/Lunarium.Logging.Configuration.csproj" />
+    <ProjectReference Include="../../src/Lunarium.Logging.Http/Lunarium.Logging.Http.csproj" />
+    <!-- Host.CreateDefaultBuilder() 在完整 Hosting 包中，Abstractions 不含此 API -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>

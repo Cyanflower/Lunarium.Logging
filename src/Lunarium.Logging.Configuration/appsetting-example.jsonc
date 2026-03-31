@@ -1,0 +1,89 @@
+{
+  "LunariumLogging": {
+    "GlobalConfig": {                             // <- 全局配置, 可选: 将覆盖系统默认行为
+      "TimeZone": "Local",                        // <- 时区设定, 可选: "Local", "Utc", 或具体时区ID (如: "Asia/Shanghai"), 默认 Local
+      "TextTimestampMode": "Custom",              // <- 文本时间戳模式: Unix, UnixMs, ISO8601, Custom, 默认 ISO8601
+      "TextCustomTimestampFormat": "yyyy-MM-dd HH:mm:ss.fff", // <- 文本自定义格式 (仅在 TextTimestampMode 为 Custom 时生效)
+      "JsonTimestampMode": "ISO8601",             // <- JSON 时间戳模式: Unix, UnixMs, ISO8601, Custom, 默认 ISO8601
+      "JsonCustomTimestampFormat": "O",           // <- JSON 自定义格式 (仅在 JsonTimestampMode 为 Custom 时生效)
+      "EnableUnsafeRelaxedJsonEscaping": true,    // <- 是否保留中文/Emoji原样不转义, 启用则保持字符原始状态, 可选, 默认 false
+      "WriteIndentedJson": false,                 // <- JSON 输出是否开启多行缩进, 可选, 默认 false
+      "EnableAutoDestructuring": false            // <- 是否针对集合类型开启自动解构, 可选, 默认 false
+    },
+    "LoggerConfigs": [
+      {
+        "LoggerName": "MyApp",                        // <- 日志记录器的名称, 可选: 用于区分不同系统的日志标记, 有默认值
+        "ConsoleSinks": {                             // <- 控制台输出端配置
+          "main-console": {                           // <- Sink 名称, 必要: 配置整个 sink 的 ID, 也是热更新定位用标识
+            "ToJson": false,                          // <- 是否启用结构化 Json 输出, 可选, 默认 false (ToJson优先级最高, 启用ToJson的情况下IsColor和TextOutput设置均无效)
+            "IsColor": true,                          // <- 是否启用控制台彩色输出, 可选, 对于 ConsoleSink 默认 true, 对于 FileSink 默认 false
+            "FilterConfig": {                               // <- 过滤器配置, 可选, 非必要
+              "LogMinLevel": "Info",                  // <- 最小日志级别, 可选, 默认 Info
+              "LogMaxLevel": "Critical",              // <- 最大日志级别, 可选, 默认 Critical
+              "ContextFilterIncludes": ["MyApp"],     // <- 上下文过滤(仅包含列表内的上下文前缀), 可选, 默认包含全部
+              "ContextFilterExcludes": ["MyApp.Noise"], // <- 上下文过滤(排除列表内的上下文前缀), 可选, 默认不排除
+              "IgnoreFilterCase": false               // <- 上下文匹配时是否忽略大小写, 可选, 默认 false
+            },
+            "TextOutput": {                           // <- 文字输出模式配置, 结构: [Time] [Level] [LoggerName] [Context] {message} {/n error}(if has ex), 可选, 非必要
+              "IncludeTimestamp": true,               // <- 输出中是否包含时间戳信息, 可选, 默认 true
+              "IncludeLevel": true,                   // <- 输出中是否包含日志等级, 可选, 默认 true
+              "IncludeLoggerName": true,              // <- 输出中是否包含日志记录器名称, 可选, 默认 true
+              "IncludeContext": true                  // <- 输出中是否包含上下文信息, 可选, 默认 true
+            }
+          }
+        },
+        "FileSinks": {                                // <- 文件输出端配置 (支持多端输出)
+          "app": {                                    // <- Sink 名称, 必要: 定位逻辑 sink 的唯一标识
+            "LogFilePath": "Logs/app.log",            // <- 日志保存路径, 必要
+            "MaxFileSizeMB": 10.0,                    // <- 单个文件最大大小 (MB), 超过限制则触发轮转, 0 代表不按大小轮转, 可选, 默认 0
+            "RotateOnNewDay": true,                   // <- 是否在每天零点切换新文件进行轮转, 可选, 默认 false
+            "MaxFile": 30,                            // <- 轮转保留的最大日志文件数量, 0 代表不限制, 可选, 默认 0
+            "ToJson": true,                           // <- 是否启用结构化 Json 输出, 可选, 默认 false
+            "IsColor": false,                         // <- 是否在文本输出中包含 ANSI 颜色代码(文件输出通常建议 false), 可选, 默认 false
+            "FilterConfig": {                               // <- 过滤器配置, 可选
+              "LogMinLevel": "Info",
+              "LogMaxLevel": "Error"
+            }
+          },
+          "runtime": {
+            "LogFilePath": "Logs/runtime.log",        // <- 日志路径可以相对或绝对
+            "MaxFileSizeMB": 10.0,
+            "MaxFile": 10,
+            "ToJson": false,
+            "IsColor": false,
+            "FilterConfig": {
+              "LogMinLevel": "Debug",
+              "LogMaxLevel": "Critical"
+            },
+            "TextOutput": {                           // <- 文本控制也适用于文件输出
+              "IncludeTimestamp": true,
+              "IncludeLevel": true,
+              "IncludeLoggerName": true,
+              "IncludeContext": true
+            }
+          },
+          "warning": {
+            "LogFilePath": "Logs/ew/warning.log",
+            "RotateOnNewDay": true,
+            "MaxFile": 30,
+            "ToJson": true,
+            "FilterConfig": {
+              "LogMinLevel": "Warning",
+              "LogMaxLevel": "Warning"
+            }
+          },
+          "error": {
+            "LogFilePath": "Logs/ew/error.log",
+            "RotateOnNewDay": true,
+            "MaxFile": 30,
+            "ToJson": true,
+            "FilterConfig": {
+              "LogMinLevel": "Error",
+              "LogMaxLevel": "Error"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

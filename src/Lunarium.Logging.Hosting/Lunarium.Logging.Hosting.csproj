@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <IsAotCompatible>true</IsAotCompatible>
+
+    <!-- ===== NuGet Info ===== -->
+    <Version>1.0.0</Version>
+    <Authors>Cyanflower</Authors>
+    <Description>Generic Host and Microsoft.Extensions.Logging integration for Lunarium.Logging. Provides UseLunariumLog() extension methods for IHostBuilder and ILoggingBuilder, enabling use of ILogger&lt;T&gt; from DI with Lunarium.Logging as the MEL provider.</Description>
+
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Cyanflower/Lunarium.Logging</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Cyanflower/Lunarium.Logging.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>Lunarium.Logging.Hosting</PackageId>
+    <PackageTags>logging;logger;log;lunarium;dotnet;microsoft-extensions-logging;generic-host</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Copyright>Copyright (c) Cyanflower 2026</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../icon.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Lunarium.Logging/Lunarium.Logging.csproj" />
+    <ProjectReference Include="../Lunarium.Logging.Configuration/Lunarium.Logging.Configuration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>
