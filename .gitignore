@@ -482,9 +482,13 @@ $RECYCLE.BIN/
 *.swp
 
 # ==== Costom Part ====
+# DocFX generated output
+docs/_site/
+docs/api/
 # Utils
 AutoAddLicenseHeader.py
 TestResults/
 CoverageReport/html/*
 .agent-history
+[Tt]emp/
 *.diff
