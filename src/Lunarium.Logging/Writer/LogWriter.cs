@@ -170,8 +170,8 @@ internal abstract class LogWriter : IDisposable
 
         WriteTimestamp(logEntry.Timestamp);
         WriteLevel(logEntry.LogLevel);
-        WriteContext(logEntry.ContextBytes);
         WriteLoggerName(logEntry.LoggerNameBytes);
+        WriteContext(logEntry.ContextBytes);
 
         // 🎣 钩子：允许子类在渲染消息前插入额外逻辑(如 JSON 的 OriginalMessage)
         BeforeRenderMessage(logEntry);
