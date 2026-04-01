@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/Cyanflower/Lunarium.Logging/actions/workflows/ci.yml/badge.svg)](https://github.com/Cyanflower/Lunarium.Logging/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.svg)](https://www.nuget.org/packages/Lunarium.Logging)
-[![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](https://github.com/Cyanflower/Lunarium.Logging)
+[![Coverage](https://codecov.io/gh/Cyanflower/Lunarium.Logging/graph/badge.svg)](https://codecov.io/gh/Cyanflower/Lunarium.Logging)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 <p align="center">English | <a href="https://github.com/Cyanflower/Lunarium.Logging/blob/main/README.ZH.md">中文</a></p>
