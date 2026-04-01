@@ -5,6 +5,8 @@
 [![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](https://github.com/Cyanflower/Lunarium.Logging)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
+<p align="center"><a href="README.md">English</a> | 中文</p>
+
 面向 .NET 的轻量级、高性能结构化日志库——零外部依赖、热路径过滤与解析零分配、完整调用链 ~200 ns 低开销、原生 AOT 兼容。
 
 > 为那些希望使用结构化消息模板日志、同时不想引入大量依赖包或与复杂 Sink 配置周旋的开发者而设计。

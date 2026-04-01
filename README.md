@@ -5,6 +5,8 @@
 [![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](https://github.com/Cyanflower/Lunarium.Logging)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
+<p align="center">English | <a href="README.ZH.md">中文</a></p>
+
 A lightweight, high-performance structured logging library for .NET — zero external dependencies, zero-allocation filter and parser hot path, ~200 ns full call path overhead, and native AOT compatible.
 
 > Designed for developers who want structured message template logging without pulling in multiple packages or wrestling with complex sink configurations.
