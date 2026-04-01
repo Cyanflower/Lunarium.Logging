@@ -22,12 +22,14 @@
 
 ### 文件命名规则
 
-每份示例提供**两个文件**（中文版；英文版后续补充）：
+每份示例提供**四个文件**（中英双语，各含 Markdown 版和 RawCSharp 版）：
 
 | 文件 | 说明 |
 |------|------|
-| `<Name>.ZH.md` | 中文 Markdown 版（主要阅读格式，含 Markdown 表格与说明） |
-| `RawCSharp/<Name>.ZH.cs` | 中文 C# 源文件（Markdown 版的完全等价的原始代码形式） |
+| `ZH/<Name>.ZH.md` | 中文 Markdown 版（含 Markdown 表格与说明） |
+| `EN/<Name>.EN.md` | 英文 Markdown 版 |
+| `RawCSharp/ZH/<Name>.ZH.cs` | 中文 C# 源文件 |
+| `RawCSharp/EN/<Name>.EN.cs` | 英文 C# 源文件 |
 
 > **MD 版与 RawCSharp 版的关系**：两者内容完全对应，MD 版在代码块之间额外插入了 Markdown 标题、表格和说明文字，对同一代码片段的解释更丰富；RawCSharp 版适合直接复制到 IDE 中参考或对照阅读。
 

@@ -71,17 +71,17 @@
 
 ## 使用建议
 
+### 常规日志（< 10 万次/秒）
+
+- 所有路径均有充足余量，无需特别优化
+- JSON 格式与 Text 格式在此频率下 GC 影响可忽略
+
 ### 高频日志（> 100 万次/秒）
 
 - 优先使用无属性或少属性（≤ 3 个）调用，控制 `params` boxing 分配
 - 使用 `LogEntryChannelTarget` 而非 `StringChannelTarget`，减少渲染和解码开销
 - 解构复杂对象时实现 `IDestructurable` 或 `IDestructured`，避免 `JsonSerializer.Serialize` 回退路径（多出 ~592 B 分配）
 - 确保 context 字符串为静态常量，避免 Filter 缓存频繁失效
-
-### 常规日志（< 10 万次/秒）
-
-- 所有路径均有充足余量，无需特别优化
-- JSON 格式与 Text 格式在此频率下 GC 影响可忽略
 
 ### AOT 场景
 

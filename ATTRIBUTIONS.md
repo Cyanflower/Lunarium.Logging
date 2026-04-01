@@ -4,9 +4,7 @@ This project utilizes or is inspired by the following open-source software.
 
 ## Serilog
 
-The message template parsing logic in `src/Lunarium.Logging/Parser/` is heavily inspired by the design and implementation of Serilog (https://github.com/serilog/serilog).
-
-While the code in this project is an original implementation and not a direct copy, it is conceptually derived from Serilog's parsing engine. We gratefully acknowledge the Serilog contributors for their excellent work.
+The concept of **Structured Message Templates**, including its specific syntax rules (e.g., destructuring prefixes `{@}`/`{$}`, formats, and alignments) and the resulting abstract domain model (`MessageTemplate` and semantics tokens like `PropertyToken`/`TextToken`), is heavily inspired by the pioneering design of Serilog (https://github.com/serilog/serilog). We gratefully acknowledge the Serilog contributors for their excellent contributions to the .NET ecosystem.
 
 Serilog is licensed under the Apache License 2.0. A copy of the license is included below for reference.
 

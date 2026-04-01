@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// The concepts of Structured Message Templates (e.g., syntax rules, Destructuring markers)
+// and the semantic Token domain model (MessageTemplate, PropertyToken, TextToken)
+// defined in this file are conceptually derived from the pioneering work of the
+// Serilog contributors.
+//
+// For the original project that popularized this syntax, see: https://github.com/serilog/serilog
+// Serilog is licensed under the Apache License 2.0.
+
 using System.Text;
 
 namespace Lunarium.Logging.Parser;

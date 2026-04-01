@@ -11,7 +11,7 @@
     <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
 
     <!-- ===== NuGet Info ===== -->
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Cyanflower</Authors>
     <Description>appsettings.json integration for Lunarium.Logging. Build and configure loggers from IConfiguration with hot-reload support — filter changes apply at runtime without restarting.</Description>
 

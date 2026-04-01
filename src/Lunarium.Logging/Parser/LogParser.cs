@@ -12,16 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// The message template parsing logic in this file is heavily inspired by Serilog,
-// an excellent open-source logging library for .NET.
-//
-// While this file is a new implementation from scratch, using a state machine
-// approach, the concepts (e.g. parser rule, MessageTemplate, semantization Token ...) are derived
-// from the original work by the Serilog contributors.
-//
-// For the original project, see: https://github.com/serilog/serilog
-// Serilog is licensed under the Apache License 2.0.
-
 using System.Collections.Concurrent;
 using System.Text;
 

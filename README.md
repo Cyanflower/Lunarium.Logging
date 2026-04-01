@@ -5,7 +5,7 @@
 [![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](https://github.com/Cyanflower/Lunarium.Logging)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-A lightweight, high-performance structured logging library for .NET — zero external dependencies, zero hot-path allocations, and native AOT compatible.
+A lightweight, high-performance structured logging library for .NET — zero external dependencies, zero-allocation filter and parser hot path, ~200 ns full call path overhead, and native AOT compatible.
 
 > Designed for developers who want structured message template logging without pulling in multiple packages or wrestling with complex sink configurations.
 
@@ -13,17 +13,25 @@ A lightweight, high-performance structured logging library for .NET — zero ext
 
 ## Why Lunarium.Logging?
 
-Many structured logging libraries split basic functionality across multiple packages — separate installs for the core, console sink, file sink, and formatters. Lunarium.Logging ships everything you need for everyday logging in a single, self-contained package with no external dependencies and no assembly sprawl. The optional extension packages (`Hosting`, `Configuration`, `Http`) are genuinely optional — the core library works on its own.
+Many structured logging libraries split basic functionality across multiple packages — separate installs for the core, console sink, file sink, and formatters. Lunarium.Logging ships everything needed for everyday logging in a single package: console, file (with built-in rotation), and channel sinks are all included, with no external dependencies and no assembly sprawl.
+
+Tired of complex logger configuration?
+**This library was built to solve a specific, practical problem**: making multi-sink and condition-based routing **intuitive**. Isolating high-frequency modules to dedicated files, aggregating global errors into a single file, and adapting console levels for different environments — Lunarium.Logging was born to address these real production pain points. You no longer need to wrestle with complex sub-loggers, obscure filter expression languages, or piece together multiple extra packages. Here, each sink declares its own level range and context rules inline, right within the same builder chain. No separate configuration steps, no expression syntax to learn. See [Filtering & Multi-Sink Routing](#filtering--multi-sink-routing) for a concrete example.
+
+Beyond packaging, the filter and template parser hot paths run at zero allocation (~9 ns and ~11–19 ns respectively). It integrates with `Microsoft.Extensions.Logging` as a full drop-in provider via the `Hosting` package, so adoption in an existing ASP.NET Core or Generic Host application requires no changes to how loggers are injected or used. Filter-level changes can be applied at runtime via `appsettings.json` hot-reload without restarting.
+
+The optional extension packages (`Hosting`, `Configuration`, `Http`) are genuinely optional — the core library works on its own.
 
 ---
 
 ## Highlights
 
-- **Zero dependencies** — The core library is complete on its own. Console, File, and Channel sinks are all built in. No extra packages required for everyday use.
-- **Zero hot-path allocations** — Filter cache hits at ~9 ns, template cache hits at ~11–19 ns, full log call at ~186–212 ns. See [benchmarks](#performance) for details.
-- **Native AOT compatible** — First-class AOT and trimming support throughout. Register a source-generated `JsonSerializerContext` for `{@Object}` destructuring, or implement `IDestructurable`/`IDestructured` for fully reflection-free structured output.
-- **Structured message templates** — `{Property}`, `{@Object}`, `{Value,10:F2}` syntax with alignment, formatting, and destructuring support.
 - **Simple, intuitive API** — Fluent builder, sensible defaults, no ceremony.
+- **Per-sink filtering and context routing** — Each sink independently declares its level range and context-based include/exclude rules, inline in the builder chain. Route modules to dedicated files, aggregate errors separately, keep the console at a different level — all without sub-loggers or expression filter syntax.
+- **Zero dependencies** — The core library is complete on its own. Console, file (with built-in rotation), and Channel sinks are all included. No extra packages required for everyday use.
+- **Low-overhead hot path / zero-allocation filter and parser** — Filter cache hits at ~9 ns, template cache hits at ~11–19 ns, both at zero allocation. Full log calls run at ~186–212 ns with 128–240 B allocated, from `LogEntry` construction and `params` boxing — not from the logging infrastructure itself. See [Performance Benchmarks](#performance) for details.
+- **Structured message templates** — `{Property}`, `{@Object}`, `{Value,10:F2}` syntax with alignment, formatting, and destructuring support.
+- **Native AOT compatible** — First-class AOT and trimming support throughout. Register a source-generated `JsonSerializerContext` for `{@Object}` destructuring, or implement `IDestructurable`/`IDestructured` for fully reflection-free structured output.
 
 ### Console Example
 ![Colored console output](assets/ConsoleSample.png)
@@ -35,7 +43,7 @@ Many structured logging libraries split basic functionality across multiple pack
 | Package | Description | NuGet |
 |---------|-------------|-------|
 | `Lunarium.Logging` | Core library — structured logging, sinks, filters | [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.svg)](https://www.nuget.org/packages/Lunarium.Logging) |
-| `Lunarium.Logging.Hosting` | `IHostBuilder` / `ILoggingBuilder` integration, MEL bridge | [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.Hosting.svg)](https://www.nuget.org/packages/Lunarium.Logging.Hosting) |
+| `Lunarium.Logging.Hosting` | `IHostBuilder` / `ILoggingBuilder` integration, MEL bridge (depends on `Lunarium.Logging.Configuration`) | [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.Hosting.svg)](https://www.nuget.org/packages/Lunarium.Logging.Hosting) |
 | `Lunarium.Logging.Configuration` | `appsettings.json` integration with hot-reload support | [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.Configuration.svg)](https://www.nuget.org/packages/Lunarium.Logging.Configuration) |
 | `Lunarium.Logging.Http` | HTTP batch sink — supports Seq (CLEF), Loki, and custom endpoints | [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.Http.svg)](https://www.nuget.org/packages/Lunarium.Logging.Http) |
 
@@ -71,12 +79,22 @@ logger.Error(ex, "Request failed for user {UserId}", userId);
 File rotation is built in — no extra packages needed:
 
 ```csharp
-ILogger logger = new LoggerBuilder()
+// rotate daily, keep up to 30 files
+new LoggerBuilder()
     .SetLoggerName("MyApp")
-    .AddTimedRotatingFileSink("logs/app.log", maxFile: 30)        // rotate daily
-    .AddSizedRotatingFileSink("logs/app.log", maxFileSizeMB: 50)  // rotate by size
-    .AddRotatingFileSink("logs/app.log",                          // both strategies
-        maxFileSizeMB: 50, rotateOnNewDay: true, maxFile: 30)
+    .AddTimedRotatingFileSink("logs/app.log", maxFile: 30)
+    .Build();
+
+// rotate when file exceeds 50 MB
+new LoggerBuilder()
+    .SetLoggerName("MyApp")
+    .AddSizedRotatingFileSink("logs/app.log", maxFileSizeMB: 50)
+    .Build();
+
+// combine both: size limit and daily rotation
+new LoggerBuilder()
+    .SetLoggerName("MyApp")
+    .AddRotatingFileSink("logs/app.log", maxFileSizeMB: 50, rotateOnNewDay: true, maxFile: 30)
     .Build();
 ```
 
@@ -114,6 +132,61 @@ validatorLog.Info("Validating order {Id}", orderId);
 ```
 
 Use it standalone as shown above, or integrate it into ASP.NET Core / Generic Host as a full drop-in replacement for the default `Microsoft.Extensions.Logging` provider — see [Integration with Generic Host](#integration-with-generic-host).
+
+---
+
+## Filtering & Multi-Sink Routing
+
+Each sink carries its own `FilterConfig` — a level range and optional context include/exclude rules. Everything is declared inline in the builder, with no separate configuration step.
+
+```csharp
+ILogger logger = new LoggerBuilder()
+    .SetLoggerName("MyApp")
+
+    // Main log — exclude the high-frequency proxy module, keep everything else
+    .AddSizedRotatingFileSink(
+        logFilePath: "logs/app.log", 
+        maxFileSizeMB: 10, 
+        maxFile: 5,
+        FilterConfig: new FilterConfig
+        {
+            LogMinLevel = LogLevel.Info,
+            ContextFilterExcludes = ["MyApp.ProxyService"],
+        })
+
+    // Dedicated file for the proxy module only
+    .AddSizedRotatingFileSink(
+        logFilePath: "logs/proxy.log", 
+        maxFileSizeMB: 10, 
+        maxFile: 10,
+        FilterConfig: new FilterConfig
+        {
+            LogMinLevel = LogLevel.Info,
+            ContextFilterIncludes = ["MyApp.ProxyService"],
+        })
+
+    // Error aggregation — all modules, Error and above only
+    .AddSizedRotatingFileSink(
+        logFilePath: "logs/error.log", 
+        maxFileSizeMB: 10, 
+        maxFile: 5,
+        FilterConfig: new FilterConfig 
+        { 
+            LogMinLevel = LogLevel.Error 
+        })
+
+    // Console — Debug and above during development
+    .AddConsoleSink(
+        FilterConfig: new FilterConfig 
+        { 
+            LogMinLevel = LogLevel.Debug 
+        })
+    .Build();
+```
+
+`ContextFilterIncludes` and `ContextFilterExcludes` match by prefix, so `"MyApp.ProxyService"` catches `MyApp.ProxyService`, `MyApp.ProxyService.Handler`, and any deeper context derived from it.
+
+For a full production example with audit logs, warning-only sinks, and a channel sink for UI broadcasting, see [Advanced Sink Configuration](example/EN/SinkConfiguration.EN.md).
 
 ---
 
@@ -230,10 +303,10 @@ Benchmarks run on i7-8750H, .NET 10.0, Release mode.
 
 | Format | Time | Allocations |
 |--------|------|-------------|
-| Plain text | ~320–600 ns | 32 B |
+| Text / Color | ~320–600 ns | 32 B |
 | JSON | ~470–750 ns | 64 B |
 
-The 32–64 B allocation in rendering comes from the `WriterPool` return path, not per-call heap pressure. Filter and parser caches operate at zero allocation on the hot path.
+The 32–64 B allocation in rendering is a minimal, fixed cost (related to pool management or internal struct wrapping), completely independent of the number of properties or message length. Filter and parser caches operate at strict zero allocation on the hot path.
 
 For detailed analysis and cross-platform comparisons, see the benchmark reports:
 - [Performance Analysis](BenchmarkReports/Latest/EN/PerformanceAnalysis.md)
@@ -325,7 +398,7 @@ Per-package breakdown:
 
 ## Attributions
 
-The message template parsing logic in [`src/Lunarium.Logging/Parser/LogParser.cs`](src/Lunarium.Logging/Parser/LogParser.cs) is an original state-machine implementation, but is conceptually inspired by the design of [Serilog](https://github.com/serilog/serilog). See [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md) for full details.
+The **Structured Message Template syntax** supported by this library, as well as its underlying abstract token model (e.g., `MessageTemplate`, `TextToken`, `PropertyToken`), are conceptually inspired by the excellent design of [Serilog](https://github.com/serilog/serilog). See [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md) for full details.
 
 ---
 

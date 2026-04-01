@@ -71,17 +71,17 @@ The 128–240 B allocation per `Log()` call is an inherent cost of the current `
 
 ## Usage Recommendations
 
+### Conventional Logging (< 100 K calls/sec)
+
+- All paths have ample headroom; no special optimizations are needed
+- GC impact of JSON vs Text format is negligible at this frequency
+
 ### High-Frequency Logging (> 1 Million calls/sec)
 
 - Prefer zero-property or low-property (≤ 3) calls to minimize `params` boxing allocation
 - Use `LogEntryChannelTarget` instead of `StringChannelTarget` to avoid rendering and decoding overhead on the channel path
 - Implement `IDestructurable` or `IDestructured` for complex object destructuring — avoids the `JsonSerializer.Serialize` fallback path (~592 B extra allocation per call)
 - Keep context strings as static constants to prevent Filter cache thrashing
-
-### Conventional Logging (< 100 K calls/sec)
-
-- All paths have ample headroom; no special optimizations are needed
-- GC impact of JSON vs Text format is negligible at this frequency
 
 ### AOT Scenarios
 
