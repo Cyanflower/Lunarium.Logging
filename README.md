@@ -36,7 +36,7 @@ The optional extension packages (`Hosting`, `Configuration`, `Http`) are genuine
 - **Native AOT compatible** — First-class AOT and trimming support throughout. Register a source-generated `JsonSerializerContext` for `{@Object}` destructuring, or implement `IDestructurable`/`IDestructured` for fully reflection-free structured output.
 
 ### Console Example
-![Colored console output](assets/ConsoleSample.png)
+![Colored console output](https://raw.githubusercontent.com/Cyanflower/Lunarium.Logging/main/assets/ConsoleSample.png)
 
 ---
 
@@ -188,7 +188,7 @@ ILogger logger = new LoggerBuilder()
 
 `ContextFilterIncludes` and `ContextFilterExcludes` match by prefix, so `"MyApp.ProxyService"` catches `MyApp.ProxyService`, `MyApp.ProxyService.Handler`, and any deeper context derived from it.
 
-For a full production example with audit logs, warning-only sinks, and a channel sink for UI broadcasting, see [Advanced Sink Configuration](example/EN/SinkConfiguration.EN.md).
+For a full production example with audit logs, warning-only sinks, and a channel sink for UI broadcasting, see [Advanced Sink Configuration](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/SinkConfiguration.EN.md).
 
 ---
 
@@ -311,8 +311,8 @@ Benchmarks run on i7-8750H, .NET 10.0, Release mode.
 The 32–64 B allocation in rendering is a minimal, fixed cost (related to pool management or internal struct wrapping), completely independent of the number of properties or message length. Filter and parser caches operate at strict zero allocation on the hot path.
 
 For detailed analysis and cross-platform comparisons, see the benchmark reports:
-- [Performance Analysis](BenchmarkReports/Latest/EN/PerformanceAnalysis.md)
-- [Platform Differences](BenchmarkReports/Latest/EN/PlatformDifferences.md)
+- [Performance Analysis](https://github.com/Cyanflower/Lunarium.Logging/blob/main/BenchmarkReports/Latest/EN/PerformanceAnalysis.md)
+- [Platform Differences](https://github.com/Cyanflower/Lunarium.Logging/blob/main/BenchmarkReports/Latest/EN/PlatformDifferences.md)
 
 ---
 
@@ -322,14 +322,14 @@ Full annotated examples are available in the [`example/`](example/) directory, e
 
 | Example | Description |
 |---------|-------------|
-| [Quick Start](example/EN/QuickStart.EN.md) | Log levels, exceptions, message template syntax, `ForContext` |
-| [Sink Configuration](example/EN/SinkConfiguration.EN.md) | All sink types, `FilterConfig`, `ISinkConfig`, `GlobalConfigurator` |
-| [Hosting Integration](example/EN/HostingIntegration.EN.md) | Generic Host, DI, MEL bridge, `UseLunariumLog` |
-| [Configuration Integration](example/EN/ConfigurationIntegration.EN.md) | `appsettings.json` binding, hot-reload |
-| [HTTP Sink](example/EN/HttpSink.EN.md) | Seq, Loki, custom serializers, `AddHttpSink` |
-| [Advanced Usage](example/EN/AdvancedUsage.EN.md) | Custom `ILogTarget`, `IDestructurable`/`IDestructured`, AOT, `LoggerManager` |
+| [Quick Start](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/QuickStart.EN.md) | Log levels, exceptions, message template syntax, `ForContext` |
+| [Sink Configuration](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/SinkConfiguration.EN.md) | All sink types, `FilterConfig`, `ISinkConfig`, `GlobalConfigurator` |
+| [Hosting Integration](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/HostingIntegration.EN.md) | Generic Host, DI, MEL bridge, `UseLunariumLog` |
+| [Configuration Integration](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/ConfigurationIntegration.EN.md) | `appsettings.json` binding, hot-reload |
+| [HTTP Sink](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/HttpSink.EN.md) | Seq, Loki, custom serializers, `AddHttpSink` |
+| [Advanced Usage](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/EN/AdvancedUsage.EN.md) | Custom `ILogTarget`, `IDestructurable`/`IDestructured`, AOT, `LoggerManager` |
 
-Raw C# source files (no Markdown) are in [`example/RawCSharp/`](example/RawCSharp/).
+Raw C# source files (no Markdown) are in [`example/RawCSharp/`](https://github.com/Cyanflower/Lunarium.Logging/blob/main/example/RawCSharp/).
 
 ---
 
@@ -396,6 +396,7 @@ Per-package breakdown:
 | `Lunarium.Logging.Configuration` | 98.1% |
 | `Lunarium.Logging.Http` | 92.8% |
 
+[CoverReport](https://github.com/Cyanflower/Lunarium.Logging/blob/main/CoverageReport/Summary.txt)
 ---
 
 ## Attributions
@@ -406,4 +407,4 @@ The **Structured Message Template syntax** supported by this library, as well as
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+Apache 2.0 — see [LICENSE](https://github.com/Cyanflower/Lunarium.Logging/blob/main/LICENSE).

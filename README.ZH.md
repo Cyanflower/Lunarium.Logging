@@ -396,6 +396,8 @@ GlobalConfigurator.Configure()
 | `Lunarium.Logging.Configuration` | 98.1% |
 | `Lunarium.Logging.Http` | 92.8% |
 
+[覆盖率报告](CoverageReport/Summary.txt)
+
 ---
 
 ## 致谢
