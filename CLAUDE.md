@@ -473,12 +473,12 @@ dotnet run -c Release --project benchmarks/Lunarium.Logging.Benchmarks -- --filt
 | `ByteChannelTarget` | ~915 ns | 128 B |
 | `StringChannelTarget` | ~1,130 ns | 192 B |
 
-### 测试现状（2026-03-28）
+### 测试现状（2026-03-31）
 
 - **测试总数**: 776（653 主库/Hosting/Configuration + 21 集成 + 102 Http 包）
   - Http 包新增 102 个（JsonArraySerializer ×33、ClefSerializer ×18、LokiSerializer ×13、DelegateHttpLogSerializer ×4、HttpTarget ×25、HttpSinkConfig ×8、扩展方法冒烟 ×8，含 Helpers）
-- **全库覆盖率（2026-03-28）**: 行覆盖率 **92.1%**，分支覆盖率 **88.5%**，方法覆盖率 **98.7%**
-- **上次统计（2026-03-26）**: 行覆盖率 91.9%，分支覆盖率 88.6%，方法覆盖率 98.5%（主库覆盖率）
+- **全库覆盖率（2026-03-31）**: 行覆盖率 **92.1%**，分支覆盖率 **88.8%**，方法覆盖率 **98.7%**
+- **上次统计（2026-03-28）**: 行覆盖率 92.1%，分支覆盖率 88.5%，方法覆盖率 98.7%
 
 覆盖率较低的模块（< 90%）：
 
@@ -490,7 +490,7 @@ dotnet run -c Release --project benchmarks/Lunarium.Logging.Benchmarks -- --filt
 | `LogWriter` | 85.1% | 少量渲染边界 |
 | `LoggerBuilder` | 86.2% | 部分 builder 状态分支 |
 | `ConsoleTarget` | 86.7% | 输出重定向降级路径 |
-| `LogColorTextWriter` | 87.6% | 少量颜色分支 |
+| `LogColorTextWriter` | 87.4% | 少量颜色分支 |
 | `HttpTarget` | 88.1% | 异常处理及取消机制等边界 |
 | `JsonArraySerializer` | 88.6% | 异常或退避分支 |
 | `InternalLogger` | 89.3% | — |

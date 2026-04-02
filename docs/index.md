@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/Cyanflower/Lunarium.Logging/actions/workflows/ci.yml/badge.svg)](https://github.com/Cyanflower/Lunarium.Logging/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Lunarium.Logging.svg)](https://www.nuget.org/packages/Lunarium.Logging)
-[![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](https://github.com/Cyanflower/Lunarium.Logging)
+[![Coverage](https://codecov.io/gh/Cyanflower/Lunarium.Logging/graph/badge.svg)](https://codecov.io/gh/Cyanflower/Lunarium.Logging)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 A lightweight, high-performance structured logging library for .NET — zero external dependencies, zero hot-path allocations, and native AOT compatible.
@@ -15,11 +15,12 @@ Many structured logging libraries split basic functionality across multiple pack
 
 ## Highlights
 
-- **Zero dependencies** — Console, File, and Channel sinks built in. No extra packages required for everyday use.
-- **Zero hot-path allocations** — Filter cache hits at ~9 ns, template cache hits at ~11–19 ns, full log call at ~186–212 ns.
-- **Native AOT compatible** — First-class AOT and trimming support. Register a source-generated `JsonSerializerContext` for `{@Object}` destructuring, or implement `IDestructurable`/`IDestructured` for fully reflection-free output.
-- **Structured message templates** — `{Property}`, `{@Object}`, `{Value,10:F2}` syntax with alignment, formatting, and destructuring.
 - **Simple, intuitive API** — Fluent builder, sensible defaults, no ceremony.
+- **Per-sink filtering and context routing** — Each sink independently declares its level range and context-based include/exclude rules, inline in the builder chain. Route modules to dedicated files, aggregate errors separately, keep the console at a different level — all without sub-loggers or expression filter syntax.
+- **Zero dependencies** — Console, File, and Channel sinks built in. No extra packages required for everyday use.
+- **Low-overhead hot path / zero-allocation filter and parser** — Filter cache hits at ~9 ns, template cache hits at ~11–19 ns, both at zero allocation. Full log calls run at ~186–212 ns with 128–240 B allocated, from `LogEntry` construction and `params` boxing — not from the logging infrastructure itself.
+- **Structured message templates** — `{Property}`, `{@Object}`, `{Value,10:F2}` syntax with alignment, formatting, and destructuring.
+- **Native AOT compatible** — First-class AOT and trimming support. Register a source-generated `JsonSerializerContext` for `{@Object}` destructuring, or implement `IDestructurable`/`IDestructured` for fully reflection-free output.
 
 ## Install
 
